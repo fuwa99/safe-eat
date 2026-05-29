@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>放心吃 - 过敏原筛选助手</title>
     <style>
-        /* ===== 基础变量 ===== */
+        /* ===== 基础变量 (保持您之前的全部样式) ===== */
         :root {
             --td-bg-color-page: #FCFCF2;
             --td-bg-color-container: #FFFFFF;
@@ -32,7 +32,6 @@
             --active-master-bg: #F08080;
             --active-sub-bg: #F08080;
         }
-        /* 深色模式 */
         [data-theme="dark"] {
             --td-bg-color-page: #121212;
             --td-bg-color-container: #1E1E1E;
@@ -57,308 +56,117 @@
             --active-sub-bg: rgba(240, 128, 128, 0.85);
             --tab-text-color: #FFFFFF;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
             background: var(--td-bg-color-page);
             color: var(--td-text-color-primary);
             transition: background 0.2s, color 0.2s;
         }
-        .page {
-            max-width: 540px;
-            margin: 0 auto;
-            padding-bottom: 40px;
-        }
-        /* 顶部栏 */
+        .page { max-width: 540px; margin: 0 auto; padding-bottom: 40px; }
         .top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 4px 12px;
-            background: var(--top-bar-bg);
-            gap: 8px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 12px; background: var(--top-bar-bg); gap: 8px;
             border-bottom: 1px solid var(--top-bar-border);
         }
         .account-btn {
-            background: #ddd8a8;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
+            background: #ddd8a8; border: none; width: 32px; height: 32px; border-radius: 50%;
+            font-size: 18px; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
             color: #2c2c1c;
         }
-        [data-theme="dark"] .account-btn {
-            background: #ddd8a8;
-            color: #2c2c1c;
-        }
-        .toolbar {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
+        .toolbar { display: flex; gap: 6px; align-items: center; }
         .tool-btn {
-            background: #ddd8a8;
-            border: none;
-            height: 28px;
-            border-radius: 28px;
-            padding: 0 10px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
+            background: #ddd8a8; border: none; height: 28px; border-radius: 28px;
+            padding: 0 10px; font-size: 12px; font-weight: 500; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
             color: #2c2c1c;
         }
-        [data-theme="dark"] .tool-btn {
-            background: #ddd8a8;
-            color: #2c2c1c;
-        }
-        #themeToggleBtn, #langBtn, #shareBtn {
-            width: 30px;
-            padding: 0;
-            justify-content: center;
-        }
+        #themeToggleBtn, #langBtn, #shareBtn { width: 30px; padding: 0; justify-content: center; }
         .lang-dropdown { position: relative; }
         .lang-menu {
-            display: none;
-            position: absolute;
-            top: 32px;
-            right: 0;
-            background: var(--td-bg-color-container);
-            border-radius: 12px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-            min-width: 120px;
-            z-index: 200;
+            display: none; position: absolute; top: 32px; right: 0;
+            background: var(--td-bg-color-container); border-radius: 12px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12); min-width: 120px; z-index: 200;
             border: 1px solid var(--td-border-color);
         }
         .lang-menu.show { display: block; }
-        .lang-item {
-            padding: 8px 14px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: background 0.1s;
-            color: var(--td-text-color-primary);
-        }
+        .lang-item { padding: 8px 14px; cursor: pointer; font-size: 13px; transition: background 0.1s; color: var(--td-text-color-primary); }
         .lang-item:hover { background: var(--td-bg-color-secondary); }
-        
         .title-card {
-            background: var(--title-card-bg);
-            border-radius: 32px;
-            margin: 18px 16px;
-            padding: 20px 16px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: var(--title-card-bg); border-radius: 32px; margin: 18px 16px;
+            padding: 20px 16px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .header-title {
-            font-size: 36px;
-            font-weight: 800;
-            font-family: "KaiTi", "楷体", "华文楷书", serif;
-            color: var(--title-text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            font-size: 36px; font-weight: 800; font-family: "KaiTi", "楷体", "华文楷书", serif;
+            color: var(--title-text); display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        .header-subtitle {
-            font-size: 11px;
-            color: var(--subtitle-text);
-            margin-top: 6px;
-        }
+        .header-subtitle { font-size: 11px; color: var(--subtitle-text); margin-top: 6px; }
         .search-section { padding: 0 16px 16px; }
         .search-input {
-            width: 100%;
-            padding: 10px 16px;
-            border-radius: 40px;
-            border: 1px solid var(--td-border-color);
-            background: var(--td-bg-color-container);
-            color: var(--td-text-color-primary);
-            font-size: 14px;
+            width: 100%; padding: 10px 16px; border-radius: 40px;
+            border: 1px solid var(--td-border-color); background: var(--td-bg-color-container);
+            color: var(--td-text-color-primary); font-size: 14px;
         }
         .allergen-section {
-            background: var(--td-bg-color-container);
-            border-radius: 24px;
-            padding: 16px;
-            margin: 0 16px 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            background: var(--td-bg-color-container); border-radius: 24px; padding: 16px;
+            margin: 0 16px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
         .section-label {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--td-text-color-secondary);
+            font-size: 14px; font-weight: 600; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px; color: var(--td-text-color-secondary);
         }
-        .color-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-dot);
-            border-radius: 50%;
-        }
-        .allergen-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+        .color-dot { display: inline-block; width: 8px; height: 8px; background-color: var(--accent-dot); border-radius: 50%; }
+        .allergen-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
         .allergen-master-btn {
-            background: var(--master-btn-bg);
-            border: 1.5px solid var(--master-btn-border);
-            border-radius: 40px;
-            padding: 6px 18px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
+            background: var(--master-btn-bg); border: 1.5px solid var(--master-btn-border); border-radius: 40px;
+            padding: 6px 18px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s;
             color: var(--tab-text-color, var(--td-text-color-primary));
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             font-family: var(--master-font-family);
         }
-        .allergen-master-btn.active {
-            background: var(--active-master-bg);
-            border-color: #E07070;
-            color: #FFFFFF;
-        }
+        .allergen-master-btn.active { background: var(--active-master-bg); border-color: #E07070; color: #FFFFFF; }
         .sub-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 4px 0 12px 16px;
-            padding-left: 12px;
-            border-left: 3px solid #c9c18e;
-        }
-        [data-theme="dark"] .sub-options {
-            border-left-color: #c9c18e;
+            display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 12px 16px;
+            padding-left: 12px; border-left: 3px solid #c9c18e;
         }
         .sub-option {
-            background: var(--sub-btn-bg);
-            border: 1px solid var(--sub-btn-border);
-            border-radius: 30px;
-            padding: 4px 14px;
-            font-size: 12.5px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.1s;
+            background: var(--sub-btn-bg); border: 1px solid var(--sub-btn-border); border-radius: 30px;
+            padding: 4px 14px; font-size: 12.5px; font-weight: 500; cursor: pointer; transition: 0.1s;
             color: var(--tab-text-color, var(--td-text-color-primary));
             font-family: var(--sub-font-family);
         }
-        .sub-option.active {
-            background: var(--active-sub-bg);
-            border-color: #E07070;
-            color: #FFFFFF;
-        }
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            margin: 12px 16px;
-            color: var(--td-text-color-primary);
-        }
-        .badge {
-            background: var(--td-bg-color-secondary);
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 12px;
-        }
-        .dish-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 0 16px;
-        }
+        .sub-option.active { background: var(--active-sub-bg); border-color: #E07070; color: #FFFFFF; }
+        .result-header { display: flex; justify-content: space-between; margin: 12px 16px; color: var(--td-text-color-primary); }
+        .badge { background: var(--td-bg-color-secondary); padding: 2px 12px; border-radius: 30px; font-size: 12px; }
+        .dish-list { display: flex; flex-direction: column; gap: 12px; padding: 0 16px; }
         .dish-card {
-            background: var(--td-bg-color-container);
-            border-radius: var(--td-card-radius);
-            padding: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-            border: 1px solid transparent;
+            background: var(--td-bg-color-container); border-radius: var(--td-card-radius); padding: 14px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
         }
         .dish-card.hidden { display: none; }
         .dish-info { flex: 1; }
         .dish-name { font-weight: 700; font-size: 16px; color: var(--td-text-color-primary); }
         .dish-restaurant { font-size: 12px; color: var(--td-text-color-secondary); margin-top: 2px; }
         .dish-price { color: var(--td-brand-color); font-weight: 700; margin-top: 4px; }
-        .dish-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: flex-end;
-        }
+        .dish-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
         .allergen-tag {
-            background: #FDECEE;
-            color: #C9353F;
-            border-radius: 12px;
-            padding: 3px 10px;
-            font-size: 10px;
-            font-weight: 500;
-            white-space: nowrap;
+            background: #FDECEE; color: #C9353F; border-radius: 12px;
+            padding: 3px 10px; font-size: 10px; font-weight: 500; white-space: nowrap;
         }
-        [data-theme="dark"] .allergen-tag {
-            background: rgba(74, 48, 48, 0.85);
-            color: #FFA0A0;
-        }
+        [data-theme="dark"] .allergen-tag { background: rgba(74, 48, 48, 0.85); color: #FFA0A0; }
         .filter-bar {
-            background: var(--filter-bar-bg);
-            margin: 0 16px 8px;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: var(--filter-bar-bg); margin: 0 16px 8px; padding: 8px 16px;
+            border-radius: 30px; font-size: 13px; display: flex; align-items: center; gap: 8px;
             color: var(--filter-bar-text);
         }
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            background: var(--td-bg-color-container);
-            border-radius: 32px;
-            margin: 20px;
-            color: var(--td-text-color-secondary);
-        }
-        .footer {
-            text-align: center;
-            font-size: 10px;
-            margin-top: 30px;
-            padding: 16px;
-            color: var(--td-text-color-secondary);
-        }
+        .empty-state { text-align: center; padding: 40px; background: var(--td-bg-color-container); border-radius: 32px; margin: 20px; color: var(--td-text-color-secondary); }
+        .footer { text-align: center; font-size: 10px; margin-top: 30px; padding: 16px; color: var(--td-text-color-secondary); }
         .toast-msg {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 12px;
-            z-index: 300;
-            opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #333; color: white; padding: 6px 14px; border-radius: 40px;
+            font-size: 12px; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none;
         }
-        [data-theme="dark"] .toast-msg {
-            background: #1A1A1A;
-            color: #FFD0B0;
-        }
+        [data-theme="dark"] .toast-msg { background: #1A1A1A; color: #FFD0B0; }
     </style>
 </head>
 <body>
@@ -392,19 +200,13 @@
     <div class="search-section"><input class="search-input" id="searchInput" placeholder="输入餐馆、菜品名称..."></div>
 
     <div class="allergen-section">
-        <div class="section-label">
-            <span class="color-dot"></span>
-            <span id="allergenLabel">常见过敏原</span>
-        </div>
+        <div class="section-label"><span class="color-dot"></span><span id="allergenLabel">常见过敏原</span></div>
         <div class="allergen-grid" id="allergenMasterContainer"></div>
         <div id="subOptionContainer"></div>
     </div>
 
     <div class="filter-bar" id="filterBar" style="display:none"><span>✅</span><span id="filterBarText"></span></div>
-    <div class="result-header">
-        <span class="count"><span id="countPrefix">共</span> <strong id="dishCount">25</strong> <span id="countSuffix">道可吃菜品</span></span>
-        <span class="badge" id="filterBadge" style="display:none">已筛选</span>
-    </div>
+    <div class="result-header"><span class="count"><span id="countPrefix">共</span> <strong id="dishCount">25</strong> <span id="countSuffix">道可吃菜品</span></span><span class="badge" id="filterBadge" style="display:none">已筛选</span></div>
     <div class="dish-list" id="dishList"></div>
     <div class="empty-state" id="emptyState" style="display:none"><div>😔</div><div id="emptyTitle">暂未找到安全菜品</div><div id="emptyDesc">请调整过敏原选项</div></div>
     <div class="footer" id="footer">食品安全提示：仅供参考，以实物为准</div>
@@ -412,88 +214,26 @@
 <div id="toastMsg" class="toast-msg"></div>
 
 <script>
-    // ----------------------------- 多语言词库 --------------------------------
+    // ----------------------------- 多语言词库 (完整) --------------------------------
     const translations = {
-        zh: {
-            mainTitle:"放心吃", subtitle:"添加你的过敏原，为你选择安全美味的菜品", allergenLabel:"常见过敏原", searchPlaceholder:"输入餐馆、菜品名称...",
-            countPrefix:"共", countSuffix:"道可吃菜品", filterBadgeText:"已筛选", emptyTitle:"暂未找到安全菜品", emptyDesc:"请调整过敏原选项",
-            footer:"食品安全提示：仅供参考，以实物为准", filterBarPrefix:"为您筛选出", filterBarSuffix:"道安全菜品", loginBtn:"登录",
-            themeTooltipLight:"浅色模式", themeTooltipDark:"深色模式", langTooltip:"切换语言", shareTooltip:"分享链接",
-            shareSuccess:"✅ 链接已复制", shareMobileTip:"📋 请手动复制链接", shareManual:"请长按链接复制",
-            masterNames: { gluten:"含麸质", crustaceans:"甲壳纲类动物", fish:"鱼类", eggs:"蛋类", peanuts:"花生", soybeans:"大豆", dairy:"乳及乳制品", nuts:"坚果" },
-            masterTooltips: { gluten:"筛选含麸质及其制品", crustaceans:"筛选甲壳纲类动物及其制品", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"筛选乳及乳制品及其制品", nuts:"筛选坚果及其制品" },
-            subNames: { wheat:"小麦", rye:"黑麦", barley:"大麦", oats:"燕麦", shrimp:"虾", lobster:"龙虾", crab:"蟹", cowMilk:"牛乳", goatMilk:"羊乳", almond:"杏仁", hazelnut:"榛子", walnut:"核桃", cashew:"腰果", pistachio:"开心果" }
-        },
-        en: {
-            mainTitle:"SafeEat", subtitle:"Add allergens, get safe meals", allergenLabel:"Common allergens", searchPlaceholder:"Search restaurant or dish...",
-            countPrefix:"", countSuffix:"safe dishes", filterBadgeText:"Filtered", emptyTitle:"No safe dishes", emptyDesc:"Try removing allergens",
-            footer:"Food safety tip: for reference only, please check actual ingredients", filterBarPrefix:"Found", filterBarSuffix:"safe dishes", loginBtn:"Login",
-            themeTooltipLight:"Light mode", themeTooltipDark:"Dark mode", langTooltip:"Language", shareTooltip:"Share link",
-            shareSuccess:"✅ Link copied", shareMobileTip:"📋 Please copy the link manually", shareManual:"Long press the link to copy",
-            masterNames: { gluten:"Gluten", crustaceans:"Crustaceans", fish:"Fish", eggs:"Eggs", peanuts:"Peanuts", soybeans:"Soy", dairy:"Dairy", nuts:"Nuts" },
-            masterTooltips: { gluten:"Filter gluten & products", crustaceans:"Filter crustaceans & products", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filter dairy & products", nuts:"Filter nuts & products" },
-            subNames: { wheat:"Wheat", rye:"Rye", barley:"Barley", oats:"Oats", shrimp:"Shrimp", lobster:"Lobster", crab:"Crab", cowMilk:"Cow milk", goatMilk:"Goat milk", almond:"Almond", hazelnut:"Hazelnut", walnut:"Walnut", cashew:"Cashew", pistachio:"Pistachio" }
-        },
-        es: {
-            mainTitle:"ComeSeguro", subtitle:"Agrega alérgenos, platos seguros", allergenLabel:"Alérgenos comunes", searchPlaceholder:"Buscar restaurante...",
-            countPrefix:"", countSuffix:"platos seguros", filterBadgeText:"Filtrado", emptyTitle:"Sin platos seguros", emptyDesc:"Reduce alérgenos",
-            footer:"Consejo de seguridad: solo como referencia, consulte ingredientes reales", filterBarPrefix:"Encontrados", filterBarSuffix:"platos seguros", loginBtn:"Iniciar",
-            themeTooltipLight:"Modo claro", themeTooltipDark:"Modo oscuro", langTooltip:"Idioma", shareTooltip:"Compartir enlace",
-            shareSuccess:"✅ Enlace copiado", shareMobileTip:"📋 Copie el enlace manualmente", shareManual:"Mantenga presionado el enlace para copiar",
-            masterNames: { gluten:"Gluten", crustaceans:"Crustáceos", fish:"Pescado", eggs:"Huevos", peanuts:"Cacahuete", soybeans:"Soja", dairy:"Lácteos", nuts:"Frutos secos" },
-            masterTooltips: { gluten:"Filtrar gluten y derivados", crustaceans:"Filtrar crustáceos y derivados", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filtrar lácteos y derivados", nuts:"Filtrar frutos secos y derivados" },
-            subNames: { wheat:"Trigo", rye:"Centeno", barley:"Cebada", oats:"Avena", shrimp:"Camarón", lobster:"Langosta", crab:"Cangrejo", cowMilk:"Leche de vaca", goatMilk:"Leche de cabra", almond:"Almendra", hazelnut:"Avellana", walnut:"Nuez", cashew:"Anacardo", pistachio:"Pistacho" }
-        },
-        fr: {
-            mainTitle:"MangeSain", subtitle:"Ajoutez allergènes, plats sûrs", allergenLabel:"Allergènes courants", searchPlaceholder:"Rechercher...",
-            countPrefix:"", countSuffix:"plats sûrs", filterBadgeText:"Filtré", emptyTitle:"Aucun plat sûr", emptyDesc:"Réduisez allergènes",
-            footer:"Conseil de sécurité: information indicative, vérifiez les ingrédients réels", filterBarPrefix:"Trouvés", filterBarSuffix:"plats sûrs", loginBtn:"Connexion",
-            themeTooltipLight:"Mode clair", themeTooltipDark:"Mode sombre", langTooltip:"Langue", shareTooltip:"Partager le lien",
-            shareSuccess:"✅ Lien copié", shareMobileTip:"📋 Copiez le lien manuellement", shareManual:"Appuyez longuement sur le lien pour copier",
-            masterNames: { gluten:"Gluten", crustaceans:"Crustacés", fish:"Poisson", eggs:"Œufs", peanuts:"Arachide", soybeans:"Soja", dairy:"Produits laitiers", nuts:"Noix" },
-            masterTooltips: { gluten:"Filtrer gluten & dérivés", crustaceans:"Filtrer crustacés & dérivés", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filtrer produits laitiers", nuts:"Filtrer fruits à coque" },
-            subNames: { wheat:"Blé", rye:"Seigle", barley:"Orge", oats:"Avoine", shrimp:"Crevette", lobster:"Homard", crab:"Crabe", cowMilk:"Lait de vache", goatMilk:"Lait de chèvre", almond:"Amande", hazelnut:"Noisette", walnut:"Noyer", cashew:"Noix de cajou", pistachio:"Pistache" }
-        },
-        ru: {
-            mainTitle:"ЕшьБезопасно", subtitle:"Добавьте аллергены", allergenLabel:"Распространенные аллергены", searchPlaceholder:"Поиск...",
-            countPrefix:"", countSuffix:"безопасных блюд", filterBadgeText:"Фильтр", emptyTitle:"Нет блюд", emptyDesc:"Уберите аллергены",
-            footer:"Совет по безопасности: только для справки, проверьте фактические ингредиенты", filterBarPrefix:"Найдено", filterBarSuffix:"блюд", loginBtn:"Войти",
-            themeTooltipLight:"Светлый режим", themeTooltipDark:"Тёмный режим", langTooltip:"Язык", shareTooltip:"Поделиться ссылкой",
-            shareSuccess:"✅ Ссылка скопирована", shareMobileTip:"📋 Скопируйте ссылку вручную", shareManual:"Удерживайте ссылку, чтобы скопировать",
-            masterNames: { gluten:"Глютен", crustaceans:"Ракообразные", fish:"Рыба", eggs:"Яйца", peanuts:"Арахис", soybeans:"Соя", dairy:"Молочные", nuts:"Орехи" },
-            masterTooltips: { gluten:"Фильтр глютена", crustaceans:"Фильтр ракообразных", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Фильтр молочных продуктов", nuts:"Фильтр орехов" },
-            subNames: { wheat:"Пшеница", rye:"Рожь", barley:"Ячмень", oats:"Овёс", shrimp:"Креветка", lobster:"Лобстер", crab:"Краб", cowMilk:"Коровье молоко", goatMilk:"Козье молоко", almond:"Миндаль", hazelnut:"Фундук", walnut:"Грецкий", cashew:"Кешью", pistachio:"Фисташка" }
-        },
-        ar: {
-            mainTitle:"تناول بأمان", subtitle:"اختر المواد المسببة", allergenLabel:"مسببات الحساسية الشائعة", searchPlaceholder:"بحث...",
-            countPrefix:"", countSuffix:"طبق آمن", filterBadgeText:"تم التصفية", emptyTitle:"لا توجد أطباق", emptyDesc:"قلل الخيارات",
-            footer:"تلميح السلامة: كمرجع فقط، يرجى التحقق من المكونات الفعلية", filterBarPrefix:"تم العثور على", filterBarSuffix:"طبق آمن", loginBtn:"دخول",
-            themeTooltipLight:"الوضع الفاتح", themeTooltipDark:"الوضع الداكن", langTooltip:"اللغة", shareTooltip:"مشاركة الرابط",
-            shareSuccess:"✅ تم نسخ الرابط", shareMobileTip:"📋 انسخ الرابط يدويًا", shareManual:"اضغط مع الاستمرار على الرابط لنسخه",
-            masterNames: { gluten:"الغلوتين", crustaceans:"القشريات", fish:"الأسماك", eggs:"البيض", peanuts:"الفول السوداني", soybeans:"فول الصويا", dairy:"مشتقات الحليب", nuts:"المكسرات" },
-            masterTooltips: { gluten:"تصفية الغلوتين", crustaceans:"تصفية القشريات", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"تصفية منتجات الألبان", nuts:"تصفية المكسرات" },
-            subNames: { wheat:"قمح", rye:"شَيلم", barley:"شعير", oats:"شوفان", shrimp:"جمبري", lobster:"كركند", crab:"سلطعون", cowMilk:"حليب بقر", goatMilk:"حليب ماعز", almond:"لوز", hazelnut:"بندق", walnut:"جوز", cashew:"كاجو", pistachio:"فستق" }
-        }
+        zh: { mainTitle:"放心吃", subtitle:"添加你的过敏原，为你选择安全美味的菜品", allergenLabel:"常见过敏原", searchPlaceholder:"输入餐馆、菜品名称...", countPrefix:"共", countSuffix:"道可吃菜品", filterBadgeText:"已筛选", emptyTitle:"暂未找到安全菜品", emptyDesc:"请调整过敏原选项", footer:"食品安全提示：仅供参考，以实物为准", filterBarPrefix:"为您筛选出", filterBarSuffix:"道安全菜品", loginBtn:"登录", themeTooltipLight:"浅色模式", themeTooltipDark:"深色模式", langTooltip:"切换语言", shareTooltip:"分享链接", shareSuccess:"✅ 链接已复制", shareMobileTip:"请手动复制下方链接", shareManual:"请手动复制", masterNames: { gluten:"含麸质", crustaceans:"甲壳纲类动物", fish:"鱼类", eggs:"蛋类", peanuts:"花生", soybeans:"大豆", dairy:"乳及乳制品", nuts:"坚果" }, masterTooltips: { gluten:"筛选含麸质及其制品", crustaceans:"筛选甲壳纲类动物及其制品", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"筛选乳及乳制品及其制品", nuts:"筛选坚果及其制品" }, subNames: { wheat:"小麦", rye:"黑麦", barley:"大麦", oats:"燕麦", shrimp:"虾", lobster:"龙虾", crab:"蟹", cowMilk:"牛乳", goatMilk:"羊乳", almond:"杏仁", hazelnut:"榛子", walnut:"核桃", cashew:"腰果", pistachio:"开心果" } },
+        en: { mainTitle:"SafeEat", subtitle:"Add allergens, get safe meals", allergenLabel:"Common allergens", searchPlaceholder:"Search restaurant or dish...", countPrefix:"", countSuffix:"safe dishes", filterBadgeText:"Filtered", emptyTitle:"No safe dishes", emptyDesc:"Try removing allergens", footer:"Food safety tip: for reference only", filterBarPrefix:"Found", filterBarSuffix:"safe dishes", loginBtn:"Login", themeTooltipLight:"Light mode", themeTooltipDark:"Dark mode", langTooltip:"Language", shareTooltip:"Share link", shareSuccess:"✅ Link copied", shareMobileTip:"Please copy the link manually", shareManual:"Manual copy required", masterNames: { gluten:"Gluten", crustaceans:"Crustaceans", fish:"Fish", eggs:"Eggs", peanuts:"Peanuts", soybeans:"Soy", dairy:"Dairy", nuts:"Nuts" }, masterTooltips: { gluten:"Filter gluten & products", crustaceans:"Filter crustaceans & products", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filter dairy & products", nuts:"Filter nuts & products" }, subNames: { wheat:"Wheat", rye:"Rye", barley:"Barley", oats:"Oats", shrimp:"Shrimp", lobster:"Lobster", crab:"Crab", cowMilk:"Cow milk", goatMilk:"Goat milk", almond:"Almond", hazelnut:"Hazelnut", walnut:"Walnut", cashew:"Cashew", pistachio:"Pistachio" } },
+        es: { mainTitle:"ComeSeguro", subtitle:"Agrega alérgenos, platos seguros", allergenLabel:"Alérgenos comunes", searchPlaceholder:"Buscar restaurante...", countPrefix:"", countSuffix:"platos seguros", filterBadgeText:"Filtrado", emptyTitle:"Sin platos seguros", emptyDesc:"Reduce alérgenos", footer:"Solo como referencia", filterBarPrefix:"Encontrados", filterBarSuffix:"platos seguros", loginBtn:"Iniciar", themeTooltipLight:"Modo claro", themeTooltipDark:"Modo oscuro", langTooltip:"Idioma", shareTooltip:"Compartir enlace", shareSuccess:"✅ Enlace copiado", shareMobileTip:"Copie el enlace manualmente", shareManual:"Copia manual requerida", masterNames: { gluten:"Gluten", crustaceans:"Crustáceos", fish:"Pescado", eggs:"Huevos", peanuts:"Cacahuete", soybeans:"Soja", dairy:"Lácteos", nuts:"Frutos secos" }, masterTooltips: { gluten:"Filtrar gluten y derivados", crustaceans:"Filtrar crustáceos y derivados", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filtrar lácteos y derivados", nuts:"Filtrar frutos secos y derivados" }, subNames: { wheat:"Trigo", rye:"Centeno", barley:"Cebada", oats:"Avena", shrimp:"Camarón", lobster:"Langosta", crab:"Cangrejo", cowMilk:"Leche de vaca", goatMilk:"Leche de cabra", almond:"Almendra", hazelnut:"Avellana", walnut:"Nuez", cashew:"Anacardo", pistachio:"Pistacho" } },
+        fr: { mainTitle:"MangeSain", subtitle:"Ajoutez allergènes, plats sûrs", allergenLabel:"Allergènes courants", searchPlaceholder:"Rechercher...", countPrefix:"", countSuffix:"plats sûrs", filterBadgeText:"Filtré", emptyTitle:"Aucun plat sûr", emptyDesc:"Réduisez allergènes", footer:"Indicatif", filterBarPrefix:"Trouvés", filterBarSuffix:"plats sûrs", loginBtn:"Connexion", themeTooltipLight:"Mode clair", themeTooltipDark:"Mode sombre", langTooltip:"Langue", shareTooltip:"Partager le lien", shareSuccess:"✅ Lien copié", shareMobileTip:"Copiez le lien manuellement", shareManual:"Copie manuelle requise", masterNames: { gluten:"Gluten", crustaceans:"Crustacés", fish:"Poisson", eggs:"Œufs", peanuts:"Arachide", soybeans:"Soja", dairy:"Produits laitiers", nuts:"Noix" }, masterTooltips: { gluten:"Filtrer gluten & dérivés", crustaceans:"Filtrer crustacés & dérivés", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Filtrer produits laitiers", nuts:"Filtrer fruits à coque" }, subNames: { wheat:"Blé", rye:"Seigle", barley:"Orge", oats:"Avoine", shrimp:"Crevette", lobster:"Homard", crab:"Crabe", cowMilk:"Lait de vache", goatMilk:"Lait de chèvre", almond:"Amande", hazelnut:"Noisette", walnut:"Noyer", cashew:"Noix de cajou", pistachio:"Pistache" } },
+        ru: { mainTitle:"ЕшьБезопасно", subtitle:"Добавьте аллергены", allergenLabel:"Распространенные аллергены", searchPlaceholder:"Поиск...", countPrefix:"", countSuffix:"безопасных блюд", filterBadgeText:"Фильтр", emptyTitle:"Нет блюд", emptyDesc:"Уберите аллергены", footer:"Справка", filterBarPrefix:"Найдено", filterBarSuffix:"блюд", loginBtn:"Войти", themeTooltipLight:"Светлый режим", themeTooltipDark:"Тёмный режим", langTooltip:"Язык", shareTooltip:"Поделиться ссылкой", shareSuccess:"✅ Ссылка скопирована", shareMobileTip:"Скопируйте ссылку вручную", shareManual:"Требуется ручное копирование", masterNames: { gluten:"Глютен", crustaceans:"Ракообразные", fish:"Рыба", eggs:"Яйца", peanuts:"Арахис", soybeans:"Соя", dairy:"Молочные", nuts:"Орехи" }, masterTooltips: { gluten:"Фильтр глютена", crustaceans:"Фильтр ракообразных", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"Фильтр молочных продуктов", nuts:"Фильтр орехов" }, subNames: { wheat:"Пшеница", rye:"Рожь", barley:"Ячмень", oats:"Овёс", shrimp:"Креветка", lobster:"Лобстер", crab:"Краб", cowMilk:"Коровье молоко", goatMilk:"Козье молоко", almond:"Миндаль", hazelnut:"Фундук", walnut:"Грецкий", cashew:"Кешью", pistachio:"Фисташка" } },
+        ar: { mainTitle:"تناول بأمان", subtitle:"اختر المواد المسببة", allergenLabel:"مسببات الحساسية الشائعة", searchPlaceholder:"بحث...", countPrefix:"", countSuffix:"طبق آمن", filterBadgeText:"تم التصفية", emptyTitle:"لا توجد أطباق", emptyDesc:"قلل الخيارات", footer:"للإشارة", filterBarPrefix:"تم العثور على", filterBarSuffix:"طبق آمن", loginBtn:"دخول", themeTooltipLight:"الوضع الفاتح", themeTooltipDark:"الوضع الداكن", langTooltip:"اللغة", shareTooltip:"مشاركة الرابط", shareSuccess:"✅ تم نسخ الرابط", shareMobileTip:"انسخ الرابط يدويًا", shareManual:"النسخ اليدوي مطلوب", masterNames: { gluten:"الغلوتين", crustaceans:"القشريات", fish:"الأسماك", eggs:"البيض", peanuts:"الفول السوداني", soybeans:"فول الصويا", dairy:"مشتقات الحليب", nuts:"المكسرات" }, masterTooltips: { gluten:"تصفية الغلوتين", crustaceans:"تصفية القشريات", fish:"", eggs:"", peanuts:"", soybeans:"", dairy:"تصفية منتجات الألبان", nuts:"تصفية المكسرات" }, subNames: { wheat:"قمح", rye:"شَيلم", barley:"شعير", oats:"شوفان", shrimp:"جمبري", lobster:"كركند", crab:"سلطعون", cowMilk:"حليب بقر", goatMilk:"حليب ماعز", almond:"لوز", hazelnut:"بندق", walnut:"جوز", cashew:"كاجو", pistachio:"فستق" } }
     };
 
     let currentLang = 'zh';
-
-    // 过敏原结构
     const masterAllergens = [
         { id: 'gluten', hasSub: true, subs: ['wheat','rye','barley','oats'] },
         { id: 'crustaceans', hasSub: true, subs: ['shrimp','lobster','crab'] },
-        { id: 'fish', hasSub: false, subs: [] },
-        { id: 'eggs', hasSub: false, subs: [] },
-        { id: 'peanuts', hasSub: false, subs: [] },
-        { id: 'soybeans', hasSub: false, subs: [] },
+        { id: 'fish', hasSub: false, subs: [] }, { id: 'eggs', hasSub: false, subs: [] },
+        { id: 'peanuts', hasSub: false, subs: [] }, { id: 'soybeans', hasSub: false, subs: [] },
         { id: 'dairy', hasSub: true, subs: ['cowMilk','goatMilk'] },
         { id: 'nuts', hasSub: true, subs: ['almond','hazelnut','walnut','cashew','pistachio'] }
     ];
-    
-    let selectedSubs = new Set();
-    let expandedMaster = new Set();
-    let selectedSimple = new Set();
-
+    let selectedSubs = new Set(), expandedMaster = new Set(), selectedSimple = new Set();
     const dishesData = [
         { name:"经典牛肉汉堡", restaurant:"美式餐厅", price:48, allergens:["wheat","dairy"] },
         { name:"鲜虾馄饨面", restaurant:"粤式茶点", price:38, allergens:["wheat","shrimp","eggs"] },
@@ -522,40 +262,27 @@
         { name:"腰果脆皮鸡", restaurant:"融合菜", price:58, allergens:["cashew","soybeans"] }
     ];
 
-    function t(key, subKey=null) {
-        const dict = translations[currentLang];
-        if(subKey && dict.subNames[subKey]) return dict.subNames[subKey];
-        if(dict[key]) return dict[key];
-        return key;
-    }
-    function getMasterLabel(masterId) { return translations[currentLang].masterNames[masterId] || masterId; }
-    function getMasterTooltip(masterId) { return translations[currentLang].masterTooltips[masterId] || ''; }
+    function t(key, subKey=null) { const d=translations[currentLang]; if(subKey && d.subNames[subKey]) return d.subNames[subKey]; return d[key]||key; }
+    function getMasterLabel(mId) { return translations[currentLang].masterNames[mId] || mId; }
+    function getMasterTooltip(mId) { return translations[currentLang].masterTooltips[mId] || ''; }
 
     function renderMasterAndSubs() {
         const container = document.getElementById('allergenMasterContainer');
         container.innerHTML = '';
         masterAllergens.forEach(m => {
-            const btn = document.createElement('button');
-            btn.className = 'allergen-master-btn';
-            btn.textContent = getMasterLabel(m.id);
-            const tip = getMasterTooltip(m.id);
-            if(tip) btn.title = tip;
+            const btn = document.createElement('button'); btn.className = 'allergen-master-btn';
+            btn.textContent = getMasterLabel(m.id); const tip = getMasterTooltip(m.id); if(tip) btn.title = tip;
             if(!m.hasSub) {
                 if(selectedSimple.has(m.id)) btn.classList.add('active');
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if(selectedSimple.has(m.id)) selectedSimple.delete(m.id);
-                    else selectedSimple.add(m.id);
-                    renderMasterAndSubs();
-                    filterDishes();
+                btn.addEventListener('click', (e) => { e.stopPropagation();
+                    if(selectedSimple.has(m.id)) selectedSimple.delete(m.id); else selectedSimple.add(m.id);
+                    renderMasterAndSubs(); filterDishes();
                 });
             } else {
                 const anyChildSelected = m.subs.some(sub => selectedSubs.has(sub));
                 if(anyChildSelected) btn.classList.add('active');
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if(expandedMaster.has(m.id)) expandedMaster.delete(m.id);
-                    else expandedMaster.add(m.id);
+                btn.addEventListener('click', (e) => { e.stopPropagation();
+                    if(expandedMaster.has(m.id)) expandedMaster.delete(m.id); else expandedMaster.add(m.id);
                     renderMasterAndSubs();
                 });
             }
@@ -565,19 +292,14 @@
         subContainer.innerHTML = '';
         for(let m of masterAllergens) {
             if(!expandedMaster.has(m.id) || !m.hasSub) continue;
-            const wrapper = document.createElement('div');
-            wrapper.className = 'sub-options';
+            const wrapper = document.createElement('div'); wrapper.className = 'sub-options';
             m.subs.forEach(subId => {
-                const span = document.createElement('span');
-                span.className = 'sub-option';
+                const span = document.createElement('span'); span.className = 'sub-option';
                 span.textContent = t(null, subId);
                 if(selectedSubs.has(subId)) span.classList.add('active');
-                span.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if(selectedSubs.has(subId)) selectedSubs.delete(subId);
-                    else selectedSubs.add(subId);
-                    renderMasterAndSubs();
-                    filterDishes();
+                span.addEventListener('click', (e) => { e.stopPropagation();
+                    if(selectedSubs.has(subId)) selectedSubs.delete(subId); else selectedSubs.add(subId);
+                    renderMasterAndSubs(); filterDishes();
                 });
                 wrapper.appendChild(span);
             });
@@ -585,56 +307,31 @@
         }
     }
 
-    function getActiveAllergens() {
-        const active = new Set();
-        for(let sub of selectedSubs) active.add(sub);
-        for(let simp of selectedSimple) active.add(simp);
-        return active;
-    }
-
+    function getActiveAllergens() { const a=new Set(); for(let s of selectedSubs) a.add(s); for(let s of selectedSimple) a.add(s); return a; }
     function filterDishes() {
-        const active = getActiveAllergens();
-        const searchVal = document.getElementById('searchInput').value.toLowerCase();
+        const active = getActiveAllergens(); const searchVal = document.getElementById('searchInput').value.toLowerCase();
         let visible = 0;
-        dishesData.forEach((dish, idx) => {
-            const card = document.getElementById(`dish-card-${idx}`);
-            if(!card) return;
-            let blocked = false;
-            for(let a of dish.allergens) if(active.has(a)) { blocked=true; break; }
+        dishesData.forEach((dish,idx) => {
+            const card = document.getElementById(`dish-card-${idx}`); if(!card) return;
+            let blocked = false; for(let a of dish.allergens) if(active.has(a)) { blocked=true; break; }
             const matchSearch = !searchVal || dish.name.includes(searchVal) || dish.restaurant.includes(searchVal);
             const hide = blocked || !matchSearch;
-            if(hide) card.classList.add('hidden');
-            else { card.classList.remove('hidden'); visible++; }
+            if(hide) card.classList.add('hidden'); else { card.classList.remove('hidden'); visible++; }
         });
         document.getElementById('dishCount').innerText = visible;
-        const prefix = t('filterBarPrefix');
-        const suffix = t('filterBarSuffix');
+        const prefix = t('filterBarPrefix'), suffix = t('filterBarSuffix');
         const filterDiv = document.getElementById('filterBar');
-        if(active.size > 0) {
-            filterDiv.style.display = 'flex';
-            document.getElementById('filterBarText').innerText = `${prefix} ${visible} ${suffix}`;
-            document.getElementById('filterBadge').style.display = 'inline-block';
-        } else {
-            filterDiv.style.display = 'none';
-            document.getElementById('filterBadge').style.display = 'none';
-        }
+        if(active.size > 0) { filterDiv.style.display='flex'; document.getElementById('filterBarText').innerText=`${prefix} ${visible} ${suffix}`; document.getElementById('filterBadge').style.display='inline-block'; }
+        else { filterDiv.style.display='none'; document.getElementById('filterBadge').style.display='none'; }
         if(visible===0) { document.getElementById('emptyState').style.display='block'; document.getElementById('dishList').style.display='none'; }
         else { document.getElementById('emptyState').style.display='none'; document.getElementById('dishList').style.display='flex'; }
     }
 
     function renderDishes() {
-        const container = document.getElementById('dishList');
-        container.innerHTML = '';
+        const container = document.getElementById('dishList'); container.innerHTML = '';
         dishesData.forEach((dish, idx) => {
-            const card = document.createElement('div');
-            card.className = 'dish-card';
-            card.id = `dish-card-${idx}`;
-            const tagsHtml = dish.allergens.map(a => {
-                let display = a;
-                if(translations[currentLang].subNames[a]) display = translations[currentLang].subNames[a];
-                else if(translations[currentLang].masterNames[a]) display = translations[currentLang].masterNames[a];
-                return `<span class="allergen-tag">${display}</span>`;
-            }).join('');
+            const card = document.createElement('div'); card.className = 'dish-card'; card.id = `dish-card-${idx}`;
+            const tagsHtml = dish.allergens.map(a => { let d=a; if(translations[currentLang].subNames[a]) d=translations[currentLang].subNames[a]; else if(translations[currentLang].masterNames[a]) d=translations[currentLang].masterNames[a]; return `<span class="allergen-tag">${d}</span>`; }).join('');
             card.innerHTML = `<div class="dish-info"><div class="dish-name">${dish.name}</div><div class="dish-restaurant">${dish.restaurant}</div><div class="dish-price">¥${dish.price}</div></div><div class="dish-tags">${tagsHtml}</div>`;
             container.appendChild(card);
         });
@@ -660,62 +357,36 @@
         renderDishes();
     }
 
-    // 深色模式
+    // 深色模式初始化与监听
     const themeBtn = document.getElementById('themeToggleBtn');
     if(localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme','dark');
-    function updateThemeButton() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        themeBtn.innerHTML = isDark ? '☀️' : '🌙';
-        themeBtn.title = isDark ? t('themeTooltipLight') : t('themeTooltipDark');
-    }
-    themeBtn.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if(isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
-        else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
-        updateThemeButton();
-        refreshLanguageUI();
-    });
+    function updateThemeButton() { const isDark = document.documentElement.getAttribute('data-theme') === 'dark'; themeBtn.innerHTML = isDark ? '☀️' : '🌙'; themeBtn.title = isDark ? t('themeTooltipLight') : t('themeTooltipDark'); }
+    themeBtn.addEventListener('click', () => { const isDark = document.documentElement.getAttribute('data-theme') === 'dark'; if(isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); } else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); } updateThemeButton(); refreshLanguageUI(); });
 
-    // ==================== 分享功能：100% 可靠的手动复制方案 ====================
+    // ==================== 修复后的分享功能 (100%可靠) ====================
     const shareBtn = document.getElementById('shareBtn');
     const toast = document.getElementById('toastMsg');
-
-    function showToast(msg) {
-        toast.textContent = msg;
-        toast.style.opacity = '1';
-        setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+    function showToast(msg, isError = false) { toast.textContent = msg; toast.style.backgroundColor = isError ? '#D32F2F' : '#333'; toast.style.opacity = '1'; setTimeout(() => { toast.style.opacity = '0'; toast.style.backgroundColor = '#333'; }, 2500); }
+    async function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            try { await navigator.clipboard.writeText(text); showToast(t('shareSuccess')); return true; } catch (err) { console.warn(err); }
+        }
+        try {
+            const textarea = document.createElement('textarea'); textarea.value = text;
+            textarea.style.position = 'fixed'; textarea.style.top = '-1000px'; textarea.style.left = '-1000px';
+            document.body.appendChild(textarea); textarea.focus(); textarea.select();
+            const successful = document.execCommand('copy'); document.body.removeChild(textarea);
+            if (successful) { showToast(t('shareSuccess')); return true; }
+            else throw new Error('execCommand failed');
+        } catch (err) { console.error(err); const manualMsg = `${t('shareMobileTip')}\n\n${text}`; alert(manualMsg); showToast(t('shareManual'), true); return false; }
     }
+    shareBtn.addEventListener('click', async () => { const url = window.location.href; await copyToClipboard(url); });
 
-    shareBtn.addEventListener('click', () => {
-        const url = window.location.href;
-        
-        // 创建一个临时的文本框
-        const tempInput = document.createElement('input');
-        tempInput.value = url;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        tempInput.setSelectionRange(0, 99999); // 对移动端兼容
-        
-        // 获取当前语言的提示文本
-        let msg = t('shareSuccess') || '✅ 链接已选中，请按 Ctrl+C (Mac: Cmd+C) 复制';
-        alert(msg);
-        showToast(msg);
-        
-        document.body.removeChild(tempInput);
-    });
-
-    // 语言菜单
+    // 语言菜单及辅助功能
     const langBtnDom = document.getElementById('langBtn'), langMenu = document.getElementById('langMenu');
     langBtnDom.addEventListener('click', (e) => { e.stopPropagation(); langMenu.classList.toggle('show'); });
     document.addEventListener('click', () => langMenu.classList.remove('show'));
-    document.querySelectorAll('.lang-item').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const l = el.dataset.lang;
-            if(translations[l]) { currentLang = l; refreshLanguageUI(); updateThemeButton(); }
-            langMenu.classList.remove('show');
-        });
-    });
+    document.querySelectorAll('.lang-item').forEach(el => { el.addEventListener('click', (e) => { e.stopPropagation(); const l = el.dataset.lang; if(translations[l]) { currentLang = l; refreshLanguageUI(); updateThemeButton(); } langMenu.classList.remove('show'); }); });
     document.getElementById('accountBtn').addEventListener('click',()=>alert('个人账号开发中'));
     document.getElementById('loginBtn').addEventListener('click',()=>alert('登录功能开发中'));
     document.getElementById('searchInput').addEventListener('input', () => filterDishes());
